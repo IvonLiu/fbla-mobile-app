@@ -59,10 +59,6 @@ public class DetailActivityFragment extends Fragment implements OnFabClickListen
         mListView = (ListView) rootView.findViewById(R.id.detail_list);
 
         List<Review> samples = new ArrayList<>();
-        for (int i=0; i<10; i++) {
-            Review review = new Review(i%5, i%5, i%2==0, "Comment "+i, "Owner " + i, System.currentTimeMillis());
-            samples.add(review);
-        }
         mAdapter = new ReviewAdapter(getActivity(), samples, this);
         mListView.setAdapter(mAdapter);
 
