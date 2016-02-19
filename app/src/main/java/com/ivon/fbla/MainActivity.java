@@ -2,14 +2,30 @@ package com.ivon.fbla;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String EXTRA_TYPE = "type";
+    public static final int TYPE_MAIN = 0;
+    public static final int TYPE_REVIEW = 1;
+    public static final int TYPE_SAVE = 2;
+
+    private OnFabClickListener mFabClickListener;
+    public void setFabClickListener(OnFabClickListener listener) {
+        mFabClickListener = listener;
+    }
+
+    private FloatingActionButton mFab;
+
+    public FloatingActionButton getFab() {
+        return mFab;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +34,42 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (mFabClickListener != null) {
+                    mFabClickListener.onFabClick((FloatingActionButton) view);
+                }
             }
         });
+
+        int type = getIntent().getIntExtra(EXTRA_TYPE, TYPE_MAIN);
+        switch(type) {
+            case TYPE_MAIN:
+            default:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment, new MainActivityFragment())
+                        .commit();
+                getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+                getFab().setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_camera));
+                break;
+            case TYPE_REVIEW:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment, DetailActivityFragment.newInstance(getIntent().getStringExtra(DetailActivityFragment.EXTRA_PHOTO_ID)))
+                        .commit();
+                getSupportActionBar().setTitle("Reviews");
+                getFab().setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_add));
+                break;
+            case TYPE_SAVE:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment, SavePhotoFragment.newInstance(getIntent().getStringExtra(SavePhotoFragment.EXTRA_IMAGE)))
+                        .commit();
+                getSupportActionBar().setTitle("Save Photo");
+                getFab().setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_done));
+                break;
+        }
     }
 
     @Override
