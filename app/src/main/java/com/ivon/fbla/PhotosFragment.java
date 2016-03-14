@@ -30,10 +30,10 @@ import java.util.Map;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements OnFabClickListener,
+public class PhotosFragment extends Fragment implements OnFabClickListener,
         OnCardClickListener, ValueEventListener {
 
-    public MainActivityFragment() {
+    public PhotosFragment() {
     }
 
     private ListView mListView;
@@ -83,7 +83,7 @@ public class MainActivityFragment extends Fragment implements OnFabClickListener
         Logger.log("Clicked " + position);
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.putExtra(MainActivity.EXTRA_TYPE, MainActivity.TYPE_REVIEW);
-        intent.putExtra(DetailActivityFragment.EXTRA_PHOTO_ID, mAdapter.getItem(position).id);
+        intent.putExtra(ReviewsFragment.EXTRA_PHOTO_ID, mAdapter.getItem(position).id);
         startActivity(intent);
     }
 
@@ -95,6 +95,8 @@ public class MainActivityFragment extends Fragment implements OnFabClickListener
     @Override
     public void onFabClick(FloatingActionButton fab) {
         launchImageCamera();
+        //Intent intent = new Intent(getActivity(), AccountActivity.class);
+        //startActivity(intent);
     }
 
     @Override

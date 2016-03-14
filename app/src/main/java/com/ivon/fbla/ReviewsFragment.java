@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * Created by Owner on 2/18/2016.
  */
-public class DetailActivityFragment extends Fragment implements OnFabClickListener,
+public class ReviewsFragment extends Fragment implements OnFabClickListener,
         OnCardClickListener, ValueEventListener {
 
     public static final String EXTRA_PHOTO_ID = "photoId";
@@ -40,8 +40,8 @@ public class DetailActivityFragment extends Fragment implements OnFabClickListen
     private String mPhotoId;
     private Firebase mFirebaseRef;
 
-    public static DetailActivityFragment newInstance(String photoId) {
-        DetailActivityFragment fragment = new DetailActivityFragment();
+    public static ReviewsFragment newInstance(String photoId) {
+        ReviewsFragment fragment = new ReviewsFragment();
         fragment.mPhotoId = photoId;
         return fragment;
     }

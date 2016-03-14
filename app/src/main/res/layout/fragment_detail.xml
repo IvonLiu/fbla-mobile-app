@@ -7,5 +7,5 @@
     android:listSelector="@android:color/transparent"
     android:drawSelectorOnTop="true"
     android:descendantFocusability="beforeDescendants"
-    tools:context="com.ivon.fbla.MainActivityFragment"
+    tools:context=".PhotosFragment"
     tools:showIn="@layout/activity_main" />

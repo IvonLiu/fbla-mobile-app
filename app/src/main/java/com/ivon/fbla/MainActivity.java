@@ -1,5 +1,6 @@
 package com.ivon.fbla;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -8,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.firebase.client.AuthData;
+import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,11 +33,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        Firebase ref = new Firebase("https://fbla-mobile-app.firebaseio.com");
+        AuthData auth = ref.getAuth();
+        if (auth == null) {
+            Logger.log("Not logged in");
+            Intent intent = new Intent(this, AccountActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Logger.log("Logged in as: " + auth.getUid());
+        }
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -50,14 +66,14 @@ public class MainActivity extends AppCompatActivity {
             case TYPE_MAIN:
             default:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment, new MainActivityFragment())
+                        .replace(R.id.fragment, new PhotosFragment())
                         .commit();
                 getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
                 getFab().setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_camera));
                 break;
             case TYPE_REVIEW:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment, DetailActivityFragment.newInstance(getIntent().getStringExtra(DetailActivityFragment.EXTRA_PHOTO_ID)))
+                        .replace(R.id.fragment, ReviewsFragment.newInstance(getIntent().getStringExtra(ReviewsFragment.EXTRA_PHOTO_ID)))
                         .commit();
                 getSupportActionBar().setTitle("Reviews");
                 getFab().setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_add));
