@@ -31,13 +31,15 @@ public class MainActivity extends AppCompatActivity {
         return mFab;
     }
 
+    Firebase mFirebaseRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        Firebase ref = new Firebase("https://fbla-mobile-app.firebaseio.com");
-        AuthData auth = ref.getAuth();
+        mFirebaseRef = new Firebase("https://fbla-mobile-app.firebaseio.com");
+        AuthData auth = mFirebaseRef.getAuth();
         if (auth == null) {
             Logger.log("Not logged in");
             Intent intent = new Intent(this, AccountActivity.class);
@@ -103,7 +105,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            mFirebaseRef.unauth();
+            Intent intent = new Intent(this, AccountActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         }
 

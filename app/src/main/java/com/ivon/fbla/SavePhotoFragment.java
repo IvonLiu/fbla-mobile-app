@@ -43,7 +43,7 @@ public class SavePhotoFragment extends Fragment implements OnFabClickListener {
 
     @Override
     public void onFabClick(FloatingActionButton fab) {
-        String username = mEditText.getText().toString();
+        String username = Utils.getUsername(getActivity());
         Photo photo = new Photo("", username, mImageFile, System.currentTimeMillis());
         mFirebaseRef.push().setValue(photo.format());
         getActivity().finish();

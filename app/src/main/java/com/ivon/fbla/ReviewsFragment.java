@@ -106,7 +106,7 @@ public class ReviewsFragment extends Fragment implements OnFabClickListener,
                 int professional = (int) ((RatingBar) view.findViewById(R.id.professional)).getRating();
                 boolean dressCode = ((CheckBox) view.findViewById(R.id.dressCode)).isChecked();
                 String comment = ((EditText) view.findViewById(R.id.comment)).getText().toString();
-                String owner = ((EditText) view.findViewById(R.id.username)).getText().toString();
+                String owner = Utils.getUsername(getActivity());
                 long timestamp = System.currentTimeMillis();
                 Review review = new Review(stylish, professional, dressCode, comment, owner, timestamp);
                 mFirebaseRef.child("reviews").push().setValue(review.format());

@@ -1,7 +1,10 @@
 package com.ivon.fbla;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
@@ -22,5 +25,10 @@ public class Utils {
     public static Bitmap stringToBitmap(String str) {
         byte[] byteArray = Base64.decode(str, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    }
+
+    public static String getUsername(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString("username", "");
     }
 }
