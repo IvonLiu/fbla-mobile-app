@@ -40,7 +40,8 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
         TextView ownerText = (TextView) view.findViewById(R.id.owner_text);
         RatingBar stylish = (RatingBar) view.findViewById(R.id.stylish);
         RatingBar professional = (RatingBar) view.findViewById(R.id.professional);
-        TextView dressCode = (TextView) view.findViewById(R.id.dressCode);
+        CardView dressCode = (CardView) view.findViewById(R.id.dressCode);
+        TextView dressCodeText = (TextView) view.findViewById(R.id.dressCodeText);
         TextView comments = (TextView) view.findViewById(R.id.comments);
 
         cardView.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +63,8 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
         Logger.log("" + review.stylish);
         stylish.setRating(review.stylish);
         professional.setRating(review.professional);
-        dressCode.setText(review.dressCode ? "yes" : "no");
+        dressCode.setCardBackgroundColor(review.dressCode ? Utils.getThemeAccentColor(getContext()) : 0xffdbdbdb);
+        dressCodeText.setText(review.dressCode ? "yes" : "no");
         comments.setText(review.comment);
 
         return view;

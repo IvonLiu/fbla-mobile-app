@@ -85,17 +85,29 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:layout_weight="4"
+                    android:layout_weight="1"
                     android:text="Dress code:"
                     android:textSize="20sp"/>
 
-                <TextView
+                <android.support.v7.widget.CardView
                     android:id="@+id/dressCode"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:textSize="20sp"/>
+                    android:layout_width="150dp"
+                    android:layout_height="42dp"
+                    app:cardBackgroundColor="#dbdbdb"
+                    app:cardElevation="0dp"
+                    app:cardMaxElevation="0dp"
+                    app:cardCornerRadius="21dp">
+
+                    <TextView
+                        android:id="@+id/dressCodeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:gravity="center"
+                        android:textAllCaps="true"
+                        android:text="No" />
+
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
@@ -114,6 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/comments"
+                    android:padding="16dp"
                     style="@style/Base.TextAppearance.AppCompat.Subhead"/>
 
             </LinearLayout>

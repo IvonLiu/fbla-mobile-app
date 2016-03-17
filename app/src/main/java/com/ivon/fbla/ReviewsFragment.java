@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -96,6 +97,21 @@ public class ReviewsFragment extends Fragment implements OnFabClickListener,
     public void onFabClick(FloatingActionButton fab) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.create_review_dialog, null);
+        final CardView dressCode = ((CardView) view.findViewById(R.id.dressCode));
+        final TextView dressCodeText = ((TextView) view.findViewById(R.id.dressCodeText));
+        dressCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String status = dressCodeText.getText().toString();
+                if (status.equals("Yes")) {
+                    dressCode.setCardBackgroundColor(0xffdbdbdb);
+                    dressCodeText.setText("No");
+                } else {
+                    dressCode.setCardBackgroundColor(Utils.getThemeAccentColor(getActivity()));
+                    dressCodeText.setText("Yes");
+                }
+            }
+        });
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Review");
         builder.setView(view);
@@ -104,7 +120,7 @@ public class ReviewsFragment extends Fragment implements OnFabClickListener,
             public void onClick(DialogInterface dialog, int which) {
                 int stylish = (int) ((RatingBar) view.findViewById(R.id.stylish)).getRating();
                 int professional = (int) ((RatingBar) view.findViewById(R.id.professional)).getRating();
-                boolean dressCode = ((CheckBox) view.findViewById(R.id.dressCode)).isChecked();
+                boolean dressCode = ((TextView) view.findViewById(R.id.dressCodeText)).getText().equals("Yes");
                 String comment = ((EditText) view.findViewById(R.id.comment)).getText().toString();
                 String owner = Utils.getUsername(getActivity());
                 long timestamp = System.currentTimeMillis();

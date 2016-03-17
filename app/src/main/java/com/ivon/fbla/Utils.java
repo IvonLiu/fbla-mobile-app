@@ -2,10 +2,12 @@ package com.ivon.fbla;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.util.Base64;
+import android.util.TypedValue;
 
 import java.io.ByteArrayOutputStream;
 
@@ -30,5 +32,19 @@ public class Utils {
     public static String getUsername(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString("username", "");
+    }
+
+    public static int getThemePrimaryColor(Context context) {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        return typedValue.data;
+    }
+
+    public static int getThemeAccentColor(Context context) {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
+        return typedValue.data;
     }
 }

@@ -1,6 +1,7 @@
 package com.ivon.fbla;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setBackgroundTintList(new ColorStateList(new int[][]{{0}}, new int[] {Utils.getThemePrimaryColor(this)}));
+        mFab.setRippleColor(Utils.getThemeAccentColor(this));
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
