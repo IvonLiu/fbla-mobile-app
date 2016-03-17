@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (!isTaskRoot()) {
+            toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        }
 
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +95,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        if (isTaskRoot()) {
+            menu.findItem(R.id.action_logout).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_logout).setVisible(false);
+        }
+
         return true;
     }
 
@@ -104,13 +115,15 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
+        if (id ==  android.R.id.home) {
+            if (!isTaskRoot()) {
+                finish();
+            }
+        } else if (id == R.id.action_logout) {
             mFirebaseRef.unauth();
             Intent intent = new Intent(this, AccountActivity.class);
             startActivity(intent);
             finish();
-            return true;
         }
 
         return super.onOptionsItemSelected(item);
