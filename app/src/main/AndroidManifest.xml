@@ -30,7 +30,7 @@
             android:name=".AccountActivity"
             android:label="Login"
             android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>
