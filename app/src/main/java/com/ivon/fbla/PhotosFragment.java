@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -42,7 +41,6 @@ public class PhotosFragment extends Fragment implements OnFabClickListener,
 
     private static final int CAMERA_IMAGE_REQUEST = 0;
     private static final int SAVE_PHOTO_REQUEST = 1;
-    private Uri mMediaUri;
 
     private static final int PERMISSIONS_REQUEST_CAMERA = 0;
 
@@ -95,8 +93,6 @@ public class PhotosFragment extends Fragment implements OnFabClickListener,
     @Override
     public void onFabClick(FloatingActionButton fab) {
         launchImageCamera();
-        //Intent intent = new Intent(getActivity(), AccountActivity.class);
-        //startActivity(intent);
     }
 
     @Override
