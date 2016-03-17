@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.firebase.client.Firebase;
@@ -20,7 +19,6 @@ public class SavePhotoFragment extends Fragment implements OnFabClickListener {
 
     private String mImageFile;
     private Firebase mFirebaseRef;
-    private EditText mEditText;
 
     public static SavePhotoFragment newInstance(String imageFile) {
         SavePhotoFragment fragment = new SavePhotoFragment();
@@ -33,7 +31,6 @@ public class SavePhotoFragment extends Fragment implements OnFabClickListener {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_save_photo, container, false);
-        mEditText = (EditText) rootView.findViewById(R.id.username);
         ((ImageView) rootView.findViewById(R.id.image)).setImageBitmap(Utils.stringToBitmap(mImageFile));
         ((MainActivity) getActivity()).setFabClickListener(this);
         mFirebaseRef = new Firebase("https://fbla-mobile-app.firebaseio.com/photos");
